@@ -1,5 +1,5 @@
 # ASP.NET Core Identity Deep Dive
-## by Scott Brady
+### by Scott Brady
 ASP.NET Core Identity brings identity and user management to the ASP.NET Core web framework. This course will get you started with the library and create modern user management and storage with a standout user experience.
 
 ## Description
