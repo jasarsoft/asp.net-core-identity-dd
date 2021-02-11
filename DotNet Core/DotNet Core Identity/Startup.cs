@@ -28,6 +28,9 @@ namespace DotNet_Core_Identity
 
             services.AddIdentityCore<PluralsightUser>(options => { });
             services.AddScoped<IUserStore<PluralsightUser>, PluralsightUserStore>();
+
+            services.AddAuthentication("cookies")
+                .AddCookie("cookies", options => options.LoginPath ="/Home/Login");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,10 +47,14 @@ namespace DotNet_Core_Identity
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
+            
+
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
