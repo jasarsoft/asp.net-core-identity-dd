@@ -15,10 +15,10 @@ namespace DotNet_Core_Identity.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<PluralsightUser> _userManager;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(UserManager<IdentityUser> userManager, ILogger<HomeController> logger)
+        public HomeController(UserManager<PluralsightUser> userManager, ILogger<HomeController> logger)
         {
             _userManager = userManager;
             _logger = logger;
@@ -64,7 +64,7 @@ namespace DotNet_Core_Identity.Controllers
 
                 if (user == null)
                 {
-                    user = new IdentityUser
+                    user = new PluralsightUser
                     {
                         Id = Guid.NewGuid().ToString(),
                         UserName = model.UserName

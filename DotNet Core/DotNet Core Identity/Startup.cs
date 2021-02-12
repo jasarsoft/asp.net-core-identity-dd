@@ -24,14 +24,14 @@ namespace DotNet_Core_Identity
         {
             services.AddControllersWithViews();
 
-            var connectionString = "Data Source=localhost; Database=DotNetCoreIdentity; Trusted_Connection=yes";
+            var connectionString = "Data Source=localhost; Database=DotNetCoreIdentity.Pluralsight; Trusted_Connection=yes";
             var migrationAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
-            services.AddDbContext<IdentityDbContext>(opt => 
+            services.AddDbContext<PluralsightUserDbContext>(opt => 
                 opt.UseSqlServer(connectionString, sql => sql.MigrationsAssembly((migrationAssembly))));
 
-            services.AddIdentityCore<IdentityUser>(options => { });
-            services.AddScoped<IUserStore<IdentityUser>, UserOnlyStore<IdentityUser, IdentityDbContext>>();
+            services.AddIdentityCore<PluralsightUser>(options => { });
+            services.AddScoped<IUserStore<PluralsightUser>, UserOnlyStore<PluralsightUser, PluralsightUserDbContext>>();
 
             services.AddAuthentication("cookies")
                 .AddCookie("cookies", options => options.LoginPath ="/Home/Login");
