@@ -1,6 +1,9 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,8 +24,14 @@ namespace DotNet_Core_Identity
         {
             services.AddControllersWithViews();
 
+            var connectionString = "Data Source=localhost; Database=DotNetCoreIdentity; Trusted_Connection=yes";
+            var migrationAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+
+            services.AddDbContext<IdentityDbContext>(opt => 
+                opt.UseSqlServer(connectionString, sql => sql.MigrationsAssembly((migrationAssembly))));
+
             services.AddIdentityCore<IdentityUser>(options => { });
-            services.AddScoped<IUserStore<IdentityUser>, CustomIdentityUserStore>();
+            services.AddScoped<IUserStore<IdentityUser>, UserOnlyStore<IdentityUser, IdentityDbContext>>();
 
             services.AddAuthentication("cookies")
                 .AddCookie("cookies", options => options.LoginPath ="/Home/Login");
