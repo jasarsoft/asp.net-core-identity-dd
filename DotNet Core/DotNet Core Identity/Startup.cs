@@ -1,14 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 
 namespace DotNet_Core_Identity
 {
@@ -26,8 +21,8 @@ namespace DotNet_Core_Identity
         {
             services.AddControllersWithViews();
 
-            services.AddIdentityCore<PluralsightUser>(options => { });
-            services.AddScoped<IUserStore<PluralsightUser>, PluralsightUserStore>();
+            services.AddIdentityCore<IdentityUser>(options => { });
+            services.AddScoped<IUserStore<IdentityUser>, CustomIdentityUserStore>();
 
             services.AddAuthentication("cookies")
                 .AddCookie("cookies", options => options.LoginPath ="/Home/Login");
